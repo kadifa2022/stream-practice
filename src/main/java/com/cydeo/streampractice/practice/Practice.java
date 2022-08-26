@@ -4,10 +4,7 @@ import com.cydeo.streampractice.model.*;
 import com.cydeo.streampractice.service.*;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -161,37 +158,93 @@ public class Practice {
 
     // Check if the salaries of all the employees in IT department are greater than 2000 (departmentName: IT)
     public static boolean checkIfThereIsAnySalaryGreaterThan2000InITDepartment() {
-        //TODO Implement the method
-        return false;
+
+       // return getAllEmployees().stream()
+       //         .filter(employee -> employee.getDepartment().getDepartmentName().equals("IT"))
+         //       .noneMatch(employee -> employee.getSalary()<2000)
+
+
+        return getAllEmployees().stream()
+                .filter(employee -> employee.getDepartment().getDepartmentName().equals("IT"))
+                .map(Employee::getSalary)
+                .noneMatch(salary->salary<2000);
+
     }
 
     // Display all the employees whose salary is less than 5000
     public static List<Employee> getAllEmployeesWithLessSalaryThan5000() {
-        //TODO Implement the method
-        return new ArrayList<>();
+      return getAllEmployees().stream()
+              .filter(employee -> employee.getSalary()<5000)
+              .collect(Collectors.toList());
     }
 
     // Display all the employees whose salary is between 6000 and 7000
     public static List<Employee> getAllEmployeesSalaryBetween() {
-        //TODO Implement the method
-        return new ArrayList<>();
+     // return getAllEmployees().stream()
+       //       .filter(employee -> employee.getSalary()>5000 && employee.getSalary()<7000)
+        //      .collect(Collectors.toList());
+
+        return getAllEmployees().stream()
+                .filter(employee -> employee.getSalary()>6000 )
+                .filter(employee -> employee.getSalary()<7000 )
+                .collect(Collectors.toList());
     }
 
     // Display the salary of the employee Grant Douglas (lastName: Grant, firstName: Douglas)
     public static Long getGrantDouglasSalary() throws Exception {
-        //TODO Implement the method
-        return 1L;
+
+        return getAllEmployees().stream()
+                .filter(employee -> employee.getFirstName().equals("Douglas"))
+                .filter(employee -> employee.getLastName().equals("Grant"))
+                .findFirst().orElseThrow(()->new Exception( "No employee found!")).getSalary();
+
+
+
     }
 
     // Display the maximum salary an employee gets
     public static Long getMaxSalary() throws Exception {
-        return 1L;
-    }
+        //  return getAllEmployees().stream()
+        //        .sorted(Comparator.comparing(Employee::getSalary).reversed())
+        //     .findFirst().get().getSalary();
 
+        // return getAllEmployees().stream()
+        //      .sorted(Comparator.comparing(Employee::getSalary).reversed())
+        //    .limit(1).collect(Collectors.toList()).get(0).getSalary();//by using index
+        //return getAllEmployees().stream()
+        //        .max(Comparator.comparing(Employee::getSalary))
+        //       .get().getSalary();//get() returning Optional
+
+        // return getAllEmployees().stream()
+        //       .map(Employee::getSalary)
+        //     .reduce((salary1, salary2)-> salary1>salary2 ? salary1:salary2)
+        //   .get();
+        //  return getAllEmployees().stream()
+        //     .map(Employee::getSalary)
+        //   .reduce(Long::max)
+        // .get();
+        return getAllEmployees().stream()
+                .map(Employee::getSalary)
+                .mapToLong(i -> i)
+                .max().getAsLong();
+
+
+    }
     // Display the employee(s) who gets the maximum salary
-    public static List<Employee> getMaxSalaryEmployee() {
-        //TODO Implement the method
-        return new ArrayList<>();
+    public static List<Employee> getMaxSalaryEmployee() {//
+     return getAllEmployees().stream()
+            .filter(employee -> {
+                try {
+                    return employee.getSalary().equals(getMaxSalary());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            })
+             .collect(Collectors.toList());
+
+        //return getMinSalaryEmployee().stream()
+         //       .max(Comparator.comparing(Employee::getSalary))
+          //      .stream().collect(Collectors.toList());
     }
 
     // Display the max salary employee's job
