@@ -327,7 +327,7 @@ public class Practice {
         return getAllEmployees().stream()
                 .filter(employee -> {
                     try {
-                        return employee.getSalary().compareTo(getMinSalary()) < 0;
+                        return employee.getSalary().compareTo(getSecondMinSalary()) < 0;
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -337,16 +337,16 @@ public class Practice {
 
         //long count = employeeService.readAll().stream()
         //    .filter(employee -> employee.getSalary().equals(getMinSalary())).count()
-    }
-
-    // Display the employee(s) who gets the second minimum salary
-   /* public static List<Employee> getSecondMinSalaryEmployee() {
-      return getAllEmployees().stream()
-              .filter(employee -> employee.getSalary().equals(getMinSalary())<0)
-              .sorted(Comparator.comparing(Employee::getSalary))
-                .findFirst().orElseThrow(()->new Exception("NO EMPLOYEE FOUND")).getSalary();
-
-    }*/
+  }
+//
+//    // Display the employee(s) who gets the second minimum salary
+//    public static List<Employee> getSecondMinSalaryEmployee() {
+//      return getAllEmployees().stream()
+//              .filter(employee -> employee.getSalary().equals(getMinSalary())<0)
+//              .sorted(Comparator.comparing(Employee::getSalary))
+//                .findFirst().orElseThrow(()->new Exception("NO EMPLOYEE FOUND")).getSalary();
+//
+//    }
 
     // Display the average salary of the employees
     public static Double getAverageSalary() {
