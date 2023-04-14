@@ -135,18 +135,65 @@ public class Practice2 {
                 .collect(Collectors.toList());
     }
 
-    //Display if there is any employee with salary less than 1000. If there is none,the methode should return true
+    //Display if there is any employee with salary less than 1000.
+    //If there is none,the methode should return true
     public static boolean checkIfThereIsNoSalaryLessThn1000() {
-    return true;
+//        return getAllEmployee().stream()
+//                .anyMatch(employee -> employee.getSalary()>1000);
+//        return getAllEmployee().stream()
+//                .noneMatch(employee -> employee.getSalary()<1000);
+        return !getAllEmployee().stream()//will return true
+                .anyMatch(employee -> employee.getSalary() < 1000);
 
     }
 
+    //check if the salaries of all the employees in IT department are greater than 2000(departmentName: IT)
+    public static boolean checkIfThereIsAnySalaryGreaterThan2000InITDepartment() {
+//        return getAllEmployee().stream()
+//                .filter(employee -> employee.getDepartment().getDepartmentName().equals("IT"))
+//                .noneMatch(employee -> employee.getSalary()<2000);
+        return getAllEmployee().stream()
+                .filter(employee -> employee.getDepartment().getDepartmentName().equals("IT"))
+                .map(Employee::getSalary)//with double collen operator
+                .noneMatch(salary -> salary < 2000);
+
+    }
+
+    //Display all the employees whose salary is less than 5000
+    public static List<Employee> getAllEmployeesWithLessSalaryThan5000() {
+        return getAllEmployee().stream()
+                .filter(employee -> employee.getSalary() < 5000)
+                .collect(Collectors.toList());
+    }
+
+    //Display all the employees whose salary is between 6000 and 7000
+    public static List<Employee> getAllEmployeesSalaryBetween() {
+//        return getAllEmployee().stream()
+//                .filter(employee -> employee.getSalary()> 6000 && employee.getSalary()<7000)
+//                .collect(Collectors.toList());
+//    }
+        return getAllEmployee().stream()//using 2 filters
+                .filter(employee -> employee.getSalary() > 6000)
+                .filter(employee -> employee.getSalary() < 7000)
+                .collect(Collectors.toList());
+
+    }
+
+    //Display the salary of the employee Grant Douglas(lastName: Grant, firstName: Douglas)
+    public static Long getGrantDouglasSalary() throws Exception {
+        return getAllEmployee().stream()
+                .filter(employee -> employee.equals("Douglas"))
+                .filter(employee -> employee.equals("Grant"))
+                .findFirst().orElseThrow(()->new Exception("No Employee found!"))
+                .getSalary();
+    }
+    //Display the maximum salary
+
+
+
+
 
 }
-
-
-
-
 
 
 
