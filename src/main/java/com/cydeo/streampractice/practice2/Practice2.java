@@ -6,6 +6,7 @@ import com.cydeo.streampractice.service.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -187,7 +188,30 @@ public class Practice2 {
                 .findFirst().orElseThrow(()->new Exception("No Employee found!"))
                 .getSalary();
     }
-    //Display the maximum salary
+    //Display the maximum salary an employee gets
+
+    public static Long getMaxSalary()throws Exception{
+//        return getAllEmployee().stream()
+//                .sorted(Comparator.comparing(Employee::getSalary).reversed())
+//                .findFirst().get().getSalary();
+//
+//        return getAllEmployee().stream()
+//                .sorted(Comparator.comparing(Employee::getSalary).reversed())
+//                .limit(1).collect(Collectors.toList()).get(0).getSalary(); // ny using Index
+
+//        return getAllEmployee().stream()
+//                .max(Comparator.comparing(Employee::getSalary))
+//                .get().getSalary(); //get() returning optional
+//
+//        return getAllEmployee().stream()
+//                .map(Employee:: getSalary)
+//                .reduce(Long::max)
+//                .get();
+        return getAllEmployee().stream()
+                .map(Employee::getSalary)
+                .mapToLong(i-> i)
+                .max().getAsLong();
+    }
 
 
 
