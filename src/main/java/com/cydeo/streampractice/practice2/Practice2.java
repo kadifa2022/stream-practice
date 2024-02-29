@@ -185,12 +185,12 @@ public class Practice2 {
         return getAllEmployee().stream()
                 .filter(employee -> employee.equals("Douglas"))
                 .filter(employee -> employee.equals("Grant"))
-                .findFirst().orElseThrow(()->new Exception("No Employee found!"))
+                .findFirst().orElseThrow(() -> new Exception("No Employee found!"))
                 .getSalary();
     }
     //Display the maximum salary an employee gets
 
-    public static Long getMaxSalary()throws Exception{
+    public static Long getMaxSalary() throws Exception {
 //        return getAllEmployee().stream()
 //                .sorted(Comparator.comparing(Employee::getSalary).reversed())
 //                .findFirst().get().getSalary();
@@ -209,20 +209,108 @@ public class Practice2 {
 //                .get();
         return getAllEmployee().stream()
                 .map(Employee::getSalary)
-                .mapToLong(i-> i)
+                .mapToLong(i -> i)
                 .max().getAsLong();
     }
 
+    //Display the employee(s) who gets the maximum salary
+    public static List<Employee> getMaxSalaryEmployee() {
+        return getAllEmployee().stream()
+                .filter(employee -> {
+                    try {
+                        return employee.getSalary().equals(getMaxSalary());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(Collectors.toList());
+    }
 
+    //Display the max salary employee's Job
+    public static Job getMaxSalaryEmployeeJob() throws Exception {
+        return getMaxSalaryEmployee().get(0).getJob();
+    }
 
+    //Display the max salary in Americas Region
+    public static long getMaxSalaryInAmericasRegion() {
+        return getAllEmployee().stream()
+                .filter(employee -> employee.getDepartment()
+                        .getLocation().getCountry().getRegion().equals("America"))
+                .max(Comparator.comparing(Employee::getSalary))
+                .get().getSalary();
+    }
+
+    // Display the second max salary an employee gets
+    public static Long getSecondMaxSalary() throws Exception {
+//        return getAllEmployee().stream()
+//                .sorted(Comparator.comparing(Employee::getSalary).reversed())
+//                .map(Employee::getSalary)
+//                .skip(1)
+//                .findFirst().get();
+//
+//    }
+        //second option
+        return getAllEmployee().stream()
+                .filter(employee -> {
+                    try {
+                        return employee.getSalary().compareTo(getSecondMaxSalary()) < 0;
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .sorted(Comparator.comparing(Employee::getSalary).reversed())
+                .findFirst().orElseThrow(() -> new Exception("No employee found")).getSalary();
+
+    }
+
+    // Display the Employee(s) who gets the second maximum salary
+    public static List<Employee> getSecondMaxSalaryEmployee() {
+        return getAllEmployee().stream()
+                .filter(employee -> {
+                    try {
+                        return employee.getSalary().equals(getSecondMaxSalary());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(Collectors.toList());
+    }
+
+    // Display the minimum salary an employee gets
+    public static Long getMinSalary() throws Exception {
+        return getAllEmployee()
+                .stream()
+                .sorted(Comparator.comparing(Employee::getSalary))
+                .findFirst().get().getSalary();
+    }
+
+    //Display the employee(s) who gets the minimum salary
+    public static List<Employee> getMinSalaryEmployee() {
+        return getAllEmployee().stream()
+                .filter(employee -> {
+                    try {
+                        return employee.getSalary().equals(getMinSalary());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(Collectors.toList());
+    }
+
+    // Display the second minimum salary an employee gets
+    public static Long getSecondMinSalary() throws Exception {
+        return getAllEmployee().stream()
+                .filter(employee -> {
+                    try {
+                        return employee.getSalary().compareTo(getSecondMinSalary()) < 0;
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .sorted(Comparator.comparing(Employee::getSalary))
+                .findFirst().orElseThrow(() -> new Exception("No employee found")).getSalary();
+
+    }
 
 
 }
-
-
-
-
-
-
-
-
