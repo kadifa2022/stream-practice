@@ -311,6 +311,30 @@ public class Practice2 {
                 .findFirst().orElseThrow(() -> new Exception("No employee found")).getSalary();
 
     }
+//        //Display the employee (s) who gets the second minimum salary
+//    public static List<Employee> getSecondMinSalaryEmployee(){
+//        return getAllEmployee().stream()
+//                .filter(employee -> employee.getSalary().equals(getMinSalary()) < 0 )
+//                    .sorted(Comparator.comparing(Employee::getSalary))
+//                .findFirst().orElseThrow(()-> new Exception("No Employees Found")).getSalary();
+//
+//    }
+//
+    // Display the average salary of the employees
+    public static Double getAverageSalary(){
+        return getAllEmployee().stream()
+                .collect(Collectors.averagingDouble(Employee::getSalary));
+
+//        return getAllEmployee().stream()
+//                .map(Employee::getSalary)
+//                .mapToDouble(salary->salary)
+//                .average().orElse(Double.NaN);//not a number
+    }
 
 
-}
+
+
+    }
+
+
+
