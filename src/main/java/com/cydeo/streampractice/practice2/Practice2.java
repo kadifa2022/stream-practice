@@ -330,6 +330,53 @@ public class Practice2 {
 //                .mapToDouble(salary->salary)
 //                .average().orElse(Double.NaN);//not a number
     }
+    // Display all the employees who are making more than average salary
+    public static  List<Employee> getEmployeeAboveAverage(){
+        return getAllEmployee().stream()
+                .filter(employee -> employee.getSalary()> getAverageSalary())
+                .collect(Collectors.toList());
+    }
+    //Display all employees who are making less than average salary
+    public static List<Employee> getEmployeeBelowAverage(){
+        return getAllEmployee().stream()
+                .filter(employee -> employee.getSalary()<getAverageSalary())
+                .collect(Collectors.toList());
+    }
+    //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
