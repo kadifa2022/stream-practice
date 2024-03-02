@@ -5,9 +5,9 @@ import com.cydeo.streampractice.model.*;
 import com.cydeo.streampractice.service.*;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -342,7 +342,31 @@ public class Practice2 {
                 .filter(employee -> employee.getSalary()<getAverageSalary())
                 .collect(Collectors.toList());
     }
-    //
+    //Display all the employees separated based on their department id number
+    public static Map<Long ,List <Employee>>  getAllEmployeeForEachDepartment(){
+        return getAllEmployee().stream()
+                .collect(Collectors.groupingBy(employee -> employee.getDepartment().getId()));
+    }
+    //Display the total amount of departments
+    public static Long getTotalDepartmentsNumber(){
+        //return getAllDepartments().stream().count();
+        return (long) getAllDepartments().size();
+    }
+  //Display the employee whose first name is 'Alyssa' and manager's first name is 'Eleni' and department name is 'Sales'
+    public static Employee getEmployeeWhoseFirstNameIsAlysaAndManagersFirstNameEleniAndDepartmentNameIsSales() throws Exception{
+        return getAllEmployee().stream()
+                .filter(employee -> employee.getFirstName().equals("Alyssa") && employee.getFirstName().equals("Eleni")
+                && employee.getDepartment().equals("Sales"))
+                .findFirst().get();
+    }
+
+    // Display all the job histories in ascending order by start date
+    public static List<JobHistory> getAllJobHistoriesInAscendingOrder(){
+        return getAllJobHistories().stream()
+                .sorted(Comparator.comparing(JobHistory::getStartDate))
+                .collect(Collectors.toList());
+    }
+
 
 
 
