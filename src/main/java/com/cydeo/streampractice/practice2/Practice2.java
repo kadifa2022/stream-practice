@@ -380,11 +380,66 @@ public class Practice2 {
                 .filter(jobHistory -> jobHistory.getJob().getJobTitle().equals("Programmer"))
                 .collect(Collectors.toList());
     }
-    //Display the employee whose job history start date in 01.01.2007 and job history and date is 31.12.2007 and department's name is 'Shipping'
+    //Display the employee whose job history start date in 01.01.2007 and job history and date is 31.12.2007 and department's name is 'Shipping
+    public static Employee getEmployeeOfJobHistoryWhoseStartDateIsFirstDayOfJanuary2007AndEndDateIsLastDayOfDecember2007AndDepartmentNameIsShipping()throws Exception{
+        return getAllJobHistories().stream()
+                .filter(jobHistory -> jobHistory.getStartDate().equals(LocalDate.of(2007,1,1)))
+                .filter(jobHistory -> jobHistory.getEndDate().equals(LocalDate.of(2007,12,31)))
+                .filter(jobHistory -> jobHistory.getDepartment().getDepartmentName().equals("Shipment"))
+                .findFirst().get().getEmployee();
+    }
 
+    //Display all employees whose name starts with 'A'
+    public static List<Employee> getAllEmployeesStartsWithA(){
+        return getAllEmployee().stream()
+                .filter(employee -> employee.getFirstName().startsWith("A"))
+                .collect(Collectors.toList());
+    }
+    //Display all employees whose job id contains "IT
+    public static List<Employee> getAllEmployeesJobIdContainsIT(){
+        return getAllEmployee().stream()
+                .filter(employee -> employee.getJob().getId().contains("IT"))
+                .collect(Collectors.toList());
+    }
+    //Display the number of employee whose job title is programmer and department name is "IT"
+    public static Long getNumberOfEmployeesWhoseJobTitleIsProgrammerAndDepartmentNameIsIT(){
+        return getAllEmployee().stream()
+                .filter(employee -> employee.getJob().getJobTitle().equals("Programmer"))
+                .filter(employee -> employee.getDepartment().getDepartmentName().equals("IT"))
+                .count();
+    }
+    // Display all employees whose department ID is 50,80 or 100 // if we go with OR we can't use multiple filters
+    public static List<Employee> getAllEmployeesDepartmentIdIs50or80or100(){
+        return getAllEmployee().stream()
+                .filter(employee -> employee.getDepartment().getId().equals(50L)
+                || employee.getDepartment().getId().equals(80L)
+                || employee.getDepartment().getId().equals(100L))
+                .collect(Collectors.toList());
 
+    }
+    //Display the initials of all the employees
+    //Note: You can assume there is no middle name
+    public static List<String> getAllEmployeesInitials(){
+        return getAllEmployee().stream()
+                .map(employee -> {String firstInitial=employee.getFirstName().substring(0,1);
+                String secondInitial = employee.getLastName().substring(0,1);
+                return firstInitial + secondInitial;})
+                .collect(Collectors.toList());
+    }
+    //Display the full nae of all the employees
+    public static List<String> getAllEmployeesFullNames() {
+//        return getAllEmployee().stream()
+//                .map(employee -> {String firstName = employee.getFirstName();
+//                    String lastName = employee.getLastName();
+//                    return firstName + " " + lastName;})
+//                .collect(Collectors.toList());
+        // second solution
 
+        return getAllEmployee().stream()
+                .map(employee -> employee.getFirstName() + " " + employee.getLastName())
+                .collect(Collectors.toList());
 
+    }
 
 
 
