@@ -5,6 +5,7 @@ import com.cydeo.streampractice.model.*;
 import com.cydeo.streampractice.service.*;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -366,6 +367,21 @@ public class Practice2 {
                 .sorted(Comparator.comparing(JobHistory::getStartDate))
                 .collect(Collectors.toList());
     }
+    //Display all the job histories where the start date is after 01.01.2005
+    public static List<JobHistory> getAllJobHistoriesStartDateAfterFirstDayOfJanuary2005(){
+        return getAllJobHistories().stream()
+                .filter(jobHistory -> jobHistory.getStartDate().isAfter(LocalDate.of(2005, 1,1)))
+                .collect(Collectors.toList());
+    }
+    //Display all the job histories where the end date is 31.12.2007 and job title of job is 'Programmer'
+    public static List<JobHistory> getAllJobHistoriesEndDateIsLastDayOfDecember2007AndJobTitleIsProgrammer(){
+        return getAllJobHistories().stream()
+                .filter(jobHistory -> jobHistory.getEndDate().equals(LocalDate.of(2007,12,31)))
+                .filter(jobHistory -> jobHistory.getJob().getJobTitle().equals("Programmer"))
+                .collect(Collectors.toList());
+    }
+    //Display the employee whose job history start date in 01.01.2007 and job history and date is 31.12.2007 and department's name is 'Shipping'
+
 
 
 
