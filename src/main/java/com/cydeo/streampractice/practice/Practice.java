@@ -476,12 +476,7 @@ public class Practice {
                         String secondInitial= employee.getLastName().substring(0,1);
                         return firstInitial +secondInitial;})
                 .collect(Collectors.toList());
-
-
     }
-
-
-
 
     // Display the full names of all the employees
     public static List<String> getAllEmployeesFullNames() {
