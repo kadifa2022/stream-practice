@@ -428,16 +428,24 @@ public class Practice2 {
     }
     //Display the full nae of all the employees
     public static List<String> getAllEmployeesFullNames() {
-//        return getAllEmployee().stream()
-//                .map(employee -> {String firstName = employee.getFirstName();
-//                    String lastName = employee.getLastName();
-//                    return firstName + " " + lastName;})
-//                .collect(Collectors.toList());
+        return getAllEmployee().stream()
+                .map(employee -> {String firstName = employee.getFirstName();
+                    String lastName = employee.getLastName();
+                    return firstName + " " + lastName;})
+                .collect(Collectors.toList());
         // second solution
 
-        return getAllEmployee().stream()
-                .map(employee -> employee.getFirstName() + " " + employee.getLastName())
-                .collect(Collectors.toList());
+//        return getAllEmployee().stream()
+//                .map(employee -> employee.getFirstName() + " " + employee.getLastName())
+//                .collect(Collectors.toList());
+
+    }
+    //Display the length of the longest ful name
+
+    public static Integer getLongestName(){
+        return getAllEmployeesFullNames().stream()
+                .max(Comparator.comparing(String::length))
+                .get().length();
 
     }
 
