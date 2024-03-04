@@ -448,6 +448,19 @@ public class Practice2 {
                 .get().length();
 
     }
+    //Display the employees (s) with the longest full name (s)
+    public static List<Employee> getLongestNamedEmployee(){
+        return getAllEmployee().stream()
+                .filter(employee -> {
+                    try {
+                        return employee.getFirstName().length() + employee.getLastName().length() + 1
+                                == getLongestName();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(Collectors.toList());
+    }
 
 
 
