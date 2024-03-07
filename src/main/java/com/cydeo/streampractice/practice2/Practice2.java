@@ -461,6 +461,20 @@ public class Practice2 {
                 })
                 .collect(Collectors.toList());
     }
+    //Display all employees whose department id is 90,60,100,120, or 130
+
+    public static List<Employee> getAllEmployeesDepartmentIdIs90or60or100or120or130(){
+        return getAllEmployee().stream()
+                .filter(employee -> employee.getDepartment().getId().equals(60L)
+                || employee.getDepartment().getId().equals(90L)
+                || employee.getDepartment().getId().equals(100L)
+                || employee.getDepartment().getId().equals(120L)
+                || employee.getDepartment().getId().equals(130L))
+                .collect(Collectors.toList());
+
+    }
+
+
 
 
 
