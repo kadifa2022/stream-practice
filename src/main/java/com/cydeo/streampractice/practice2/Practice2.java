@@ -473,6 +473,13 @@ public class Practice2 {
                 .collect(Collectors.toList());
 
     }
+    //Display al employees whose department is not 90,60,100,120, or 130
+    public static List<Employee> getAllEmployeesDepartmentIdIsNot90or60or100or120or130(){
+        return getAllEmployee().stream()
+                .filter(employee -> !getAllEmployeesDepartmentIdIsNot90or60or100or120or130().contains(employee))
+                .collect(Collectors.toList());
+    }
+
 
 
 
